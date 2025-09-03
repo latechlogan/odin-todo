@@ -1,3 +1,12 @@
 import "./styles.css";
+import eventBus from "./modules/eventBus";
+import storageManager from "./modules/storageManager";
+import timelineManager from "./modules/timelineManager";
+import todoManager from "./modules/todoManager";
+import uiController from "./modules/uiController";
 
-console.log("The connection to index.js works!");
+eventBus.logger();
+storageManager.logger();
+timelineManager.logger();
+todoManager.logger();
+uiController.logger();
