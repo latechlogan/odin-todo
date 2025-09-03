@@ -1,8 +1,18 @@
 const eventBus = (function () {
-  const lockedIn = "eventBus.js is locked in!";
+  let events = {};
 
   return {
-    logger: () => console.log(lockedIn),
+    on: (event, callback) => {
+      if (!events[event]) {
+        events[event] = [];
+      }
+      events[event].push(callback);
+    },
+    emit: (event, data) => {
+      if (events[event]) {
+        events[event].forEach((callback) => callback(data));
+      }
+    },
   };
 })();
 
