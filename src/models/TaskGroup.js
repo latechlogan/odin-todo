@@ -4,3 +4,5 @@ class TaskGroup {
     this.tasks = [];
   }
 }
+
+export default TaskGroup;

@@ -21,3 +21,5 @@ class Task {
     this.completed = !this.completed;
   }
 }
+
+export default Task;
