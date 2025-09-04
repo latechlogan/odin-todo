@@ -1,4 +1,5 @@
-// This is all you need for basic cleanup
+import eventBus from "./eventBus";
+
 const storageManager = (() => {
   const STORAGE_KEY = "todoTimeline";
 
@@ -20,7 +21,7 @@ const storageManager = (() => {
     localStorage.removeItem(STORAGE_KEY);
   };
 
-  return { save, load, clear };
+  eventBus.on("taskAdded", save);
 })();
 
 export default storageManager;
