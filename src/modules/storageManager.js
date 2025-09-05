@@ -14,13 +14,15 @@ const storageManager = (() => {
   };
 
   const load = function () {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    const savedTasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    eventBus.emit("tasksLoaded", savedTasks);
   };
 
   const clear = function () {
     localStorage.removeItem(STORAGE_KEY);
   };
 
+  eventBus.on("appStart", load);
   eventBus.on("tasksChanged", save);
 })();
 
