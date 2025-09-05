@@ -5,7 +5,7 @@ const timelineManager = (function () {
     const groups = new Map();
 
     tasks.forEach((task) => {
-      const dateKey = task.dueDate.toDateString();
+      const dateKey = task.dueDate;
 
       if (!groups.has(dateKey)) {
         groups.set(dateKey, new TaskGroup(task.dueDate));
@@ -18,6 +18,7 @@ const timelineManager = (function () {
     return Array.from(groups.values());
   };
 
+  eventBus.on("tasksLoaded", groupTasksByDate);
   eventBus.on("tasksChanged", groupTasksByDate);
 })();
 
