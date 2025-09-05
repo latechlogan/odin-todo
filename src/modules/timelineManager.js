@@ -18,7 +18,7 @@ const timelineManager = (function () {
     return Array.from(groups.values());
   };
 
-  eventBus.on("taskAdded", groupTasksByDate);
+  eventBus.on("tasksChanged", groupTasksByDate);
 })();
 
 export default timelineManager;

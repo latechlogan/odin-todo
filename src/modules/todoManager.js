@@ -18,7 +18,7 @@ const todoManager = (function () {
   const addTask = function (task) {
     tasks.push(task);
     console.log(tasks);
-    eventBus.emit("taskAdded", tasks);
+    eventBus.emit("tasksChanged", tasks);
   };
 
   const handleFormSubmit = function (object) {
