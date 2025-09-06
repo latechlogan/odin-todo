@@ -123,9 +123,9 @@ const uiController = (function () {
 
   // code below for testing in console without UI
   const testSubmission = {
-    title: "Pickup Dry Cleaning",
-    dueDateString: "2025/09/05",
-    description: "Pickup the dry cleaning at Weil Cleaning on North 7th",
+    title: "Pickup the Kids",
+    dueDateString: new Date(),
+    description: "",
     importance: 1,
   };
 
