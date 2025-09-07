@@ -1,6 +1,6 @@
 class TaskGroup {
-  constructor(date) {
-    this.date = new Date(date);
+  constructor(groupName) {
+    this.groupName = groupName;
     this.tasks = [];
   }
 }
