@@ -12,7 +12,7 @@ const todoManager = (function () {
       object.importance
     );
     console.log(task);
-    return task;
+    addTask(task);
   };
 
   const addTask = function (task) {
@@ -21,12 +21,7 @@ const todoManager = (function () {
     eventBus.emit("tasksChanged", tasks);
   };
 
-  const handleFormSubmit = function (object) {
-    const task = createTask(object);
-    addTask(task);
-  };
-
-  eventBus.on("formSubmitted", handleFormSubmit);
+  eventBus.on("formSubmitted", createTask);
 })();
 
 export default todoManager;
