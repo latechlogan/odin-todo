@@ -1,4 +1,5 @@
 import eventBus from "./eventBus";
+import Task from "../models/Task";
 
 const storageManager = (() => {
   const STORAGE_KEY = "todoTimeline";
@@ -14,7 +15,9 @@ const storageManager = (() => {
   };
 
   const load = function () {
-    const loadedTasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    const rawData = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    const loadedTasks = rawData.map((obj) => Task.fromObject(obj));
+    console.log("Loaded tasks: ", loadedTasks);
     eventBus.emit("tasksLoaded", loadedTasks);
   };
 
