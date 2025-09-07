@@ -5,7 +5,7 @@ const uiController = (function () {
     const defaults = {
       title: "Pickup Dry Cleaning",
       dueDateString: new Date(),
-      description: "Pickup the dry cleaning at Weil Cleaning on North 7th",
+      description: "",
       importance: 1,
     };
     const testSubmission = { ...defaults, ...options };
