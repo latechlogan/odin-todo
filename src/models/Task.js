@@ -12,6 +12,21 @@ class Task {
     this.id = crypto.randomUUID();
   }
 
+  static fromObject(obj) {
+    const task = new Task(
+      obj.title,
+      obj.dueDate,
+      obj.description,
+      obj.importance
+    );
+
+    task.id = obj.id;
+    task.completed = obj.completed;
+    task.createdAt = new Date(obj.createdAt);
+
+    return task;
+  }
+
   isOverdue() {
     const now = new Date();
     now > this.dueDate ? true : false;
