@@ -1,4 +1,5 @@
 import eventBus from "./eventBus";
+import feather from "feather-icons";
 
 const uiController = (function () {
   const getSubmission = function (options = {}) {
@@ -27,11 +28,14 @@ const uiController = (function () {
       title.textContent = task.title;
 
       const editBtn = document.createElement("button");
-      editBtn.textContent = "Edit";
+      editBtn.classList.add("task-edit-btn");
+      editBtn.innerHTML = `<span data-feather="edit-2"></span>`;
 
       taskDiv.append(checkbox, title, editBtn);
 
       document.querySelector(".tasks-container").appendChild(taskDiv);
+
+      feather.replace();
     });
   };
 
