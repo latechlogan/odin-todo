@@ -21,7 +21,7 @@ const storageManager = (() => {
     localStorage.removeItem(STORAGE_KEY);
   };
 
-  eventBus.on("taskAdded", save);
+  eventBus.on("tasksChanged", save);
 })();
 
 export default storageManager;
