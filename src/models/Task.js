@@ -1,8 +1,8 @@
 class Task {
-  constructor(title, dueDateString, description = "", importance = 1) {
+  constructor(title, dueDate, description = "", importance = 1) {
     // User-provided
     this.description = description;
-    this.dueDate = new Date(dueDateString);
+    this.dueDate = new Date(dueDate);
     this.importance = importance;
     this.title = title;
 
