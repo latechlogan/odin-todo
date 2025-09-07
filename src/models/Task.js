@@ -1,10 +1,17 @@
 class Task {
-  constructor(title, dueDate, description = "", importance = 1) {
+  constructor(
+    title,
+    dueDate,
+    description = "",
+    importance = 1,
+    groupId = null
+  ) {
     // User-provided
-    this.description = description;
-    this.dueDate = new Date(dueDate);
-    this.importance = importance;
     this.title = title;
+    this.dueDate = new Date(dueDate);
+    this.description = description;
+    this.importance = importance;
+    this.groupId = groupId;
 
     // Auto-generated
     this.completed = false;
@@ -17,7 +24,8 @@ class Task {
       obj.title,
       obj.dueDate,
       obj.description,
-      obj.importance
+      obj.importance,
+      obj.groupId
     );
 
     task.id = obj.id;
