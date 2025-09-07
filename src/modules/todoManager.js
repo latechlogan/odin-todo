@@ -11,16 +11,22 @@ const todoManager = (function () {
       object.description,
       object.importance
     );
-    console.log(task);
     addTask(task);
   };
 
   const addTask = function (task) {
     tasks.push(task);
-    console.log(tasks);
     eventBus.emit("tasksChanged", tasks);
   };
 
+  const loadTasks = function (loadedTasks) {
+    loadedTasks.forEach((task) => {
+      tasks.push(task);
+      eventBus.emit("tasksChanged", tasks);
+    });
+  };
+
+  eventBus.on("tasksLoaded", loadTasks);
   eventBus.on("formSubmitted", createTask);
 })();
 
