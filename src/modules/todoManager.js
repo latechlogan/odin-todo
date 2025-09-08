@@ -7,8 +7,11 @@ const todoManager = (function () {
   const taskGroups = [];
 
   const initializeInbox = function () {
-    const inbox = new TaskGroup("Inbox", "inbox");
-    taskGroups.push(inbox);
+    let inbox = taskGroups.find((el) => el.id === "inbox");
+    if (!inbox) {
+      inbox = new TaskGroup("Inbox", "inbox");
+      taskGroups.push(inbox);
+    }
     eventBus.emit("inboxReady");
   };
 
@@ -46,9 +49,11 @@ const todoManager = (function () {
 
   const loadTaskGroups = function (loadedTaskGroups) {
     loadedTaskGroups.forEach((group) => {
-      taskGroups.push(group);
-      eventBus.emit("taskGroupsChanged", taskGroups);
+      if (group.id !== "inbox") {
+        taskGroups.push(group);
+      }
     });
+    eventBus.emit("taskGroupsChanged", taskGroups);
   };
 
   const getTasks = function () {
@@ -61,6 +66,7 @@ const todoManager = (function () {
 
   eventBus.on("appStart", initializeInbox);
   eventBus.on("tasksLoaded", loadTasks);
+  eventBus.on("taskGroupsLoaded", loadTaskGroups);
   eventBus.on("newTaskSubmitted", createTask);
   eventBus.on("newGroupSubmitted", createTaskGroup);
 
