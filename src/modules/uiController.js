@@ -15,6 +15,7 @@ const uiController = (function () {
 
     if (!document.querySelector(".task-row.editing")) {
       document.querySelector('[data-id="inbox"]').appendChild(row);
+      document.querySelector(".task-title-input").focus();
     }
 
     setupRowHandlers(row);
@@ -39,12 +40,11 @@ const uiController = (function () {
   };
 
   const handleSaveTask = function (row) {
-    // Now works with rows, not cards
     const taskData = {
       title: row.querySelector(".task-title-input").value,
       dueDateString: new Date().toDateString,
-      description: "", // Since we're only requiring title now
-      importance: 1, // Default values
+      description: "",
+      importance: 1,
     };
 
     if (!taskData.title) {
@@ -53,7 +53,6 @@ const uiController = (function () {
     }
 
     eventBus.emit("formSubmitted", taskData);
-    // transformRowToDisplayMode(row, taskData);
   };
 
   const handleCancelTask = function (row) {
