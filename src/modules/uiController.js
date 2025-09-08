@@ -1,4 +1,6 @@
 import eventBus from "./eventBus";
+import todoManager from "./todoManager";
+import TaskGroup from "../models/TaskGroup";
 import feather from "feather-icons";
 
 const uiController = (function () {
@@ -67,30 +69,52 @@ const uiController = (function () {
     eventBus.emit("formSubmitted", testSubmission);
   };
 
-  const displayTasks = function (tasks) {
-    document.querySelector(".tasks-container").innerHTML = "";
-    tasks.forEach((task) => {
-      const taskDiv = document.createElement("div");
-      taskDiv.classList.add("task-item");
-      taskDiv.dataset.id = task.id;
+  const displayTasks = function () {
+    console.log("displayTasks is running");
+    const tasks = todoManager.getTasks();
+    const taskGroups = todoManager.getTaskGroups();
+    const tasksContainer = document.querySelector(".tasks-container");
 
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = task.completed;
+    tasksContainer.innerHTML = "";
 
-      const title = document.createElement("span");
-      title.textContent = task.title;
+    taskGroups.forEach((group) => {
+      const taskGroupDiv = document.createElement("div");
+      taskGroupDiv.classList.add("task-group");
+      taskGroupDiv.dataset.id = group.id;
 
-      const editBtn = document.createElement("button");
-      editBtn.classList.add("task-edit-btn");
-      editBtn.innerHTML = `<span data-feather="edit-2"></span>`;
+      const taskGroupHeader = document.createElement("p");
+      taskGroupHeader.classList.add("task-group__header");
+      taskGroupHeader.textContent = group.groupName;
 
-      taskDiv.append(checkbox, title, editBtn);
+      const taskGroupWrapper = document.createElement("div");
+      taskGroupWrapper.classList.add("task-group__wrapper");
 
-      document.querySelector(".tasks-container").appendChild(taskDiv);
+      const taskSubset = TaskGroup.getTasksFromArray(tasks);
+      taskSubset.forEach((task) => {
+        const taskWrapper = document.createElement("div");
+        taskWrapper.classList.add("task-div");
 
-      feather.replace();
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = task.completed;
+
+        const title = document.createElement("span");
+        title.textContent = task.title;
+
+        const editBtn = document.createElement("button");
+        editBtn.classList.add("task-edit-btn");
+        editBtn.innerHTML = `<span data-feather="edit-2"></span>`;
+
+        taskWrapper.append(checkbox, title, editBtn);
+        taskGroupWrapper.append(taskWrapper);
+      });
+
+      taskGroupDiv.append(taskGroupHeader, taskGroupWrapper);
+      tasksContainer.append(taskGroupDiv);
     });
+
+    feather.replace();
+    console.log("displayTasks is exiting");
   };
 
   eventBus.on("tasksChanged", displayTasks);

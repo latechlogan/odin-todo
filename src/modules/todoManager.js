@@ -46,8 +46,18 @@ const todoManager = (function () {
     });
   };
 
+  const getTasks = function () {
+    return tasks;
+  };
+
+  const getTaskGroups = function () {
+    return taskGroups;
+  };
+
   eventBus.on("tasksLoaded", loadTasks);
   eventBus.on("formSubmitted", createTask);
+
+  return { getTasks, getTaskGroups };
 })();
 
 export default todoManager;
