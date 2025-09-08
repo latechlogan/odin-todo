@@ -17,7 +17,6 @@ const storageManager = (() => {
   const load = function () {
     const rawData = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     const loadedTasks = rawData.map((obj) => Task.fromObject(obj));
-    console.log("Loaded tasks: ", loadedTasks);
     eventBus.emit("tasksLoaded", loadedTasks);
   };
 
@@ -25,7 +24,7 @@ const storageManager = (() => {
     localStorage.removeItem(STORAGE_KEY);
   };
 
-  eventBus.on("appStart", load);
+  eventBus.on("inboxReady", load);
   eventBus.on("tasksChanged", save);
 })();
 
