@@ -39,9 +39,10 @@ const todoManager = (function () {
     eventBus.emit("groupsChanged", groups);
   };
 
-  const moveTasksToGroups = function () {
-    groups.forEach((group) => {
-      TaskGroup.getTasksFromArray(tasks);
+  const loadTaskGroups = function (loadedTaskGroups) {
+    loadedTaskGroups.forEach((group) => {
+      groups.push(group);
+      eventBus.emit("groupsChanged", groups);
     });
   };
 
