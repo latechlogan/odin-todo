@@ -150,6 +150,7 @@ const uiController = (function () {
       taskSubset.forEach((task) => {
         const taskWrapper = document.createElement("div");
         taskWrapper.classList.add("task-div");
+        taskWrapper.dataset.id = task.id;
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -180,6 +181,20 @@ const uiController = (function () {
     e.target.dataset.object === "task"
       ? createEditableTaskRow()
       : createEditableGroupRow();
+  });
+
+  const tasksContainer = document.querySelector(".tasks-container");
+
+  tasksContainer.addEventListener("change", (e) => {
+    if (e.target.type === "checkbox") {
+      const taskDiv = e.target.closest(".task-div");
+      const taskId = taskDiv.dataset.id;
+
+      const task = todoManager.getTasks().find((task) => task.id === taskId);
+      task.toggleComplete();
+
+      eventBus.emit("taskChanged", task);
+    }
   });
 
   return { getSubmission };
