@@ -26,6 +26,7 @@ const storageManager = (() => {
 
   eventBus.on("inboxReady", load);
   eventBus.on("tasksChanged", save);
+  eventBus.on("taskGroupsChanged", save);
 })();
 
 export default storageManager;
