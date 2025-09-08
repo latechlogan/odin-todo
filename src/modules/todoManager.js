@@ -61,7 +61,8 @@ const todoManager = (function () {
 
   eventBus.on("appStart", initializeInbox);
   eventBus.on("tasksLoaded", loadTasks);
-  eventBus.on("formSubmitted", createTask);
+  eventBus.on("newTaskSubmitted", createTask);
+  eventBus.on("newGroupSubmitted", createTaskGroup);
 
   return { getTasks, getTaskGroups };
 })();
