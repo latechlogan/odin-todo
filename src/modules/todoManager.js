@@ -4,7 +4,7 @@ import TaskGroup from "../models/TaskGroup.js";
 
 const todoManager = (function () {
   const tasks = [];
-  const groups = [];
+  const taskGroups = [];
 
   const createTask = function (object) {
     const task = new Task(
@@ -35,14 +35,14 @@ const todoManager = (function () {
   };
 
   const addTaskGroup = function (group) {
-    groups.push(group);
-    eventBus.emit("groupsChanged", groups);
+    taskGroups.push(group);
+    eventBus.emit("taskGroupsChanged", taskGroups);
   };
 
   const loadTaskGroups = function (loadedTaskGroups) {
     loadedTaskGroups.forEach((group) => {
-      groups.push(group);
-      eventBus.emit("groupsChanged", groups);
+      taskGroups.push(group);
+      eventBus.emit("taskGroupsChanged", taskGroups);
     });
   };
 
