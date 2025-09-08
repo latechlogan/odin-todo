@@ -4,7 +4,7 @@ class Task {
     dueDate,
     description = "",
     importance = 1,
-    groupId = null
+    groupId = "inbox"
   ) {
     // User-provided
     this.title = title;
