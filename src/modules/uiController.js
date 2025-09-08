@@ -8,20 +8,23 @@ const uiController = (function () {
     const row = document.createElement("div");
     row.className = "task-row editing";
     row.innerHTML = `
-      <input type="text" class="task-title-input" placeholder="Task title..." />
+      <input type="text" class="task-title-input" placeholder="Task..." />
       <button class="save-task-btn">Save</button>
       <button class="cancel-task-btn">Cancel</button>
     `;
 
     if (!document.querySelector(".task-row.editing")) {
-      document.querySelector('[data-id="inbox"]').appendChild(row);
+      document
+        .querySelector('[data-id="inbox"]')
+        .querySelector(".task-group__wrapper")
+        .appendChild(row);
       document.querySelector(".task-title-input").focus();
     }
 
-    setupRowHandlers(row);
+    setupNewTaskHandlers(row);
   };
 
-  const setupRowHandlers = function (row) {
+  const setupNewTaskHandlers = function (row) {
     row
       .querySelector(".save-task-btn")
       .addEventListener("click", () => handleSaveTask(row));
@@ -52,7 +55,7 @@ const uiController = (function () {
       return;
     }
 
-    eventBus.emit("formSubmitted", taskData);
+    eventBus.emit("newTaskSubmitted", taskData);
   };
 
   const handleCancelTask = function (row) {
@@ -60,6 +63,7 @@ const uiController = (function () {
   };
 
   const getSubmission = function (options = {}) {
+    console.log("getSubmission being called");
     const defaults = {
       title: "Pickup Dry Cleaning",
       dueDateString: new Date(),
@@ -68,6 +72,58 @@ const uiController = (function () {
     };
     const testSubmission = { ...defaults, ...options };
     eventBus.emit("formSubmitted", testSubmission);
+  };
+
+  const createEditableGroupRow = function () {
+    const row = document.createElement("div");
+    row.className = "group-row editing";
+    row.innerHTML = `
+      <input type="text" class="group-name-input" placeholder="Group name..." />
+      <button class="save-group-btn">Save</button>
+      <button class="cancel-group-btn">Cancel</button>
+    `;
+
+    if (!document.querySelector(".group-row.editing")) {
+      document.querySelector(".tasks-container").appendChild(row);
+      document.querySelector(".group-name-input").focus();
+    }
+
+    setupNewGroupHandlers(row);
+  };
+
+  const setupNewGroupHandlers = function (row) {
+    row
+      .querySelector(".save-group-btn")
+      .addEventListener("click", () => handleSaveGroup(row));
+    row
+      .querySelector(".cancel-group-btn")
+      .addEventListener("click", () => handleCancelGroup(row));
+
+    row.querySelector(".group-name-input").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        handleSaveGroup(row);
+      }
+      if (e.key === "Escape") {
+        handleCancelGroup(row);
+      }
+    });
+  };
+
+  const handleSaveGroup = function (row) {
+    const groupData = {
+      groupName: row.querySelector(".group-name-input").value,
+    };
+
+    if (!groupData.groupName) {
+      alert("Group name is required!");
+      return;
+    }
+
+    eventBus.emit("newGroupSubmitted", groupData.groupName);
+  };
+
+  const handleCancelGroup = function (row) {
+    row.remove();
   };
 
   const displayTasks = function () {
@@ -80,6 +136,7 @@ const uiController = (function () {
     taskGroups.forEach((group) => {
       const taskGroupDiv = document.createElement("div");
       taskGroupDiv.classList.add("task-group");
+      taskGroupDiv.classList.add("group-row");
       taskGroupDiv.dataset.id = group.id;
 
       const taskGroupHeader = document.createElement("p");
@@ -117,10 +174,13 @@ const uiController = (function () {
   };
 
   eventBus.on("tasksChanged", displayTasks);
+  eventBus.on("taskGroupsChanged", displayTasks);
 
-  document
-    .querySelector(".add-task-btn")
-    .addEventListener("click", createEditableTaskRow);
+  document.querySelector(".add-btns").addEventListener("click", function (e) {
+    e.target.dataset.object === "task"
+      ? createEditableTaskRow()
+      : createEditableGroupRow();
+  });
 
   return { getSubmission };
 })();
