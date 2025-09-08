@@ -6,13 +6,18 @@ const todoManager = (function () {
   const tasks = [];
   const taskGroups = [];
 
+  const initializeInbox = function () {
+    const inbox = new TaskGroup("Inbox", "inbox");
+    taskGroups.push(inbox);
+    eventBus.emit("inboxReady");
+  };
+
   const createTask = function (object) {
     const task = new Task(
       object.title,
       object.dueDateString,
       object.description,
-      object.importance,
-      object.groupId
+      object.importance
     );
     addTask(task);
   };
@@ -25,8 +30,8 @@ const todoManager = (function () {
   const loadTasks = function (loadedTasks) {
     loadedTasks.forEach((task) => {
       tasks.push(task);
-      eventBus.emit("tasksChanged", tasks);
     });
+    eventBus.emit("tasksChanged", tasks);
   };
 
   const createTaskGroup = function (name) {
@@ -54,6 +59,7 @@ const todoManager = (function () {
     return taskGroups;
   };
 
+  eventBus.on("appStart", initializeInbox);
   eventBus.on("tasksLoaded", loadTasks);
   eventBus.on("formSubmitted", createTask);
 
