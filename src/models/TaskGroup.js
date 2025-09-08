@@ -5,8 +5,9 @@ class TaskGroup {
     this.tasks = [];
   }
 
-  static getTasksFromArray(array) {
-    array.filter((task) => task.groupId === this.id);
+  getTasksFromArray(array) {
+    const tasks = array.filter((task) => task.groupId === this.id);
+    return tasks;
   }
 }
 
