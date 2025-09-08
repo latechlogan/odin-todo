@@ -13,7 +13,9 @@ const uiController = (function () {
       <button class="cancel-task-btn">Cancel</button>
     `;
 
-    document.querySelector(".tasks-container").appendChild(row);
+    if (!document.querySelector(".task-row.editing")) {
+      document.querySelector('[data-id="inbox"]').appendChild(row);
+    }
 
     setupRowHandlers(row);
   };
