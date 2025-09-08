@@ -192,6 +192,7 @@ const uiController = (function () {
 
       const task = todoManager.getTasks().find((task) => task.id === taskId);
       task.toggleComplete();
+      taskDiv.classList.toggle("completed", task.completed);
 
       eventBus.emit("taskChanged", task);
     }
