@@ -70,7 +70,6 @@ const uiController = (function () {
   };
 
   const displayTasks = function () {
-    console.log("displayTasks is running");
     const tasks = todoManager.getTasks();
     const taskGroups = todoManager.getTaskGroups();
     const tasksContainer = document.querySelector(".tasks-container");
@@ -89,7 +88,7 @@ const uiController = (function () {
       const taskGroupWrapper = document.createElement("div");
       taskGroupWrapper.classList.add("task-group__wrapper");
 
-      const taskSubset = TaskGroup.getTasksFromArray(tasks);
+      const taskSubset = group.getTasksFromArray(tasks);
       taskSubset.forEach((task) => {
         const taskWrapper = document.createElement("div");
         taskWrapper.classList.add("task-div");
@@ -114,7 +113,6 @@ const uiController = (function () {
     });
 
     feather.replace();
-    console.log("displayTasks is exiting");
   };
 
   eventBus.on("tasksChanged", displayTasks);
