@@ -57,7 +57,7 @@ const uiController = (function () {
   };
 
   const handleCancelTask = function (row) {
-    // delete row?
+    row.remove();
   };
 
   const getSubmission = function (options = {}) {
