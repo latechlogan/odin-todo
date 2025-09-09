@@ -116,6 +116,15 @@ h6 {
 
 /* CUSTOM CSS */
 
+html,
+body {
+  position: relative;
+  top: 0;
+  left: 0;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 .sr-only:not(:focus):not(:active) {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
@@ -126,13 +135,34 @@ h6 {
   width: 1px;
 }
 
+.add-btns {
+  padding: 1.728rem;
+  display: inline-block;
+}
+
+.tasks-container {
+  width: 100%;
+  padding: 1.728rem;
+  scroll-padding: 1.728rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.728rem;
+  align-items: flex-start;
+}
+
 .task-group {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
+
+/* @media screen and (min-width: 560px) {
+  .task-group {
+    flex: 0 0 clamp(300px, 400px, 500px);
+  }
+} */
 
 .task-group__wrapper {
   width: 100%;
