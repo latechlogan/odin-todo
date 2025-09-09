@@ -138,6 +138,10 @@ const uiController = (function () {
       taskGroupHeader.classList.add("task-group__header");
       taskGroupHeader.textContent = group.groupName;
 
+      const taskGroupMenu = document.createElement("button");
+      taskGroupMenu.classList.add("task-group__menu");
+      taskGroupMenu.innerHTML = '<span data-feather="more-horizontal"></span>';
+
       const taskGroupWrapper = document.createElement("div");
       taskGroupWrapper.classList.add("task-group__wrapper");
 
@@ -173,7 +177,7 @@ const uiController = (function () {
         taskGroupWrapper.append(taskWrapper);
       });
 
-      taskGroupDiv.append(taskGroupHeader, taskGroupWrapper);
+      taskGroupDiv.append(taskGroupHeader, taskGroupMenu, taskGroupWrapper);
       tasksContainer.append(taskGroupDiv);
     });
 
