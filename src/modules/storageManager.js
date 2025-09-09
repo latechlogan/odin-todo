@@ -25,11 +25,16 @@ const storageManager = (() => {
   };
 
   const load = function () {
-    const rawData = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    const fallbackData = JSON.stringify({ tasks: [], taskGroups: [] });
+    const rawData = JSON.parse(
+      localStorage.getItem(STORAGE_KEY) || fallbackData
+    );
+
     const loadedTasks = rawData["tasks"].map((obj) => Task.fromObject(obj));
     const loadedTaskGroups = rawData["taskGroups"].map((obj) =>
       TaskGroup.fromObject(obj)
     );
+
     eventBus.emit("tasksLoaded", loadedTasks);
     eventBus.emit("taskGroupsLoaded", loadedTaskGroups);
   };
