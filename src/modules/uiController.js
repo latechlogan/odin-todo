@@ -208,6 +208,7 @@ const uiController = (function () {
       const task = todoManager.getTasks().find((task) => task.id === taskId);
       task.groupId = e.target.value;
     }
+    eventBus.emit("tasksChanged");
     displayTasks();
   });
 })();
