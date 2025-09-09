@@ -1,15 +1,8 @@
 class Task {
-  constructor(
-    title,
-    dueDate,
-    description = "",
-    importance = 1,
-    groupId = "inbox"
-  ) {
+  constructor(title, dueDate, importance = 1, groupId = "inbox") {
     // User-provided
     this.title = title;
     this.dueDate = new Date(dueDate);
-    this.description = description;
     this.importance = importance;
     this.groupId = groupId;
 
@@ -20,13 +13,7 @@ class Task {
   }
 
   static fromObject(obj) {
-    const task = new Task(
-      obj.title,
-      obj.dueDate,
-      obj.description,
-      obj.importance,
-      obj.groupId
-    );
+    const task = new Task(obj.title, obj.dueDate, obj.importance, obj.groupId);
 
     task.id = obj.id;
     task.completed = obj.completed;

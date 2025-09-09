@@ -19,7 +19,6 @@ const todoManager = (function () {
     const task = new Task(
       object.title,
       object.dueDateString,
-      object.description,
       object.importance
     );
     addTask(task);

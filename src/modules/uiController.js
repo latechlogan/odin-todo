@@ -46,7 +46,6 @@ const uiController = (function () {
     const taskData = {
       title: row.querySelector(".task-title-input").value,
       dueDateString: new Date().toDateString,
-      description: "",
       importance: 1,
     };
 
@@ -67,7 +66,6 @@ const uiController = (function () {
     const defaults = {
       title: "Pickup Dry Cleaning",
       dueDateString: new Date(),
-      description: "",
       importance: 1,
     };
     const testSubmission = { ...defaults, ...options };
@@ -158,6 +156,8 @@ const uiController = (function () {
 
         const title = document.createElement("span");
         title.textContent = task.title;
+
+        cosnt;
 
         const editBtn = document.createElement("button");
         editBtn.classList.add("task-edit-btn");
