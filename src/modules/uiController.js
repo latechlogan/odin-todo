@@ -159,7 +159,7 @@ const uiController = (function () {
         title.textContent = task.title;
 
         const selectLabel = document.createElement("label");
-        selectLabel.setAttribute("for", "groupSelect");
+        selectLabel.setAttribute("for", `groupSelect-${task.id}`);
         selectLabel.classList.add("sr-only");
         selectLabel.textContent =
           "Select the group you would like to move this task to:";
