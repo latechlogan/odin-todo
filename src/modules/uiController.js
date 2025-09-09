@@ -163,6 +163,7 @@ const uiController = (function () {
         select.setAttribute("id", `groupSelect-${task.id}`);
         select.setAttribute("name", "groupSelect");
         select.innerHTML = `${taskGroupsAsOptions}`;
+        select.value = task.groupId;
 
         const editBtn = document.createElement("button");
         editBtn.classList.add("task-edit-btn");
@@ -198,9 +199,16 @@ const uiController = (function () {
       const task = todoManager.getTasks().find((task) => task.id === taskId);
       task.toggleComplete();
       taskDiv.classList.toggle("completed", task.completed);
-
-      eventBus.emit("taskChanged", task);
     }
+
+    if (e.target.type.includes("select")) {
+      const taskDiv = e.target.closest(".task-div");
+      const taskId = taskDiv.dataset.id;
+
+      const task = todoManager.getTasks().find((task) => task.id === taskId);
+      task.groupId = e.target.value;
+    }
+    displayTasks();
   });
 })();
 
