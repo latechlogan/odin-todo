@@ -160,7 +160,7 @@ const uiController = (function () {
         selectLabel.textContent =
           "Select the group you would like to move this task to:";
         const select = document.createElement("select");
-        select.setAttribute("id", "groupSelect");
+        select.setAttribute("id", `groupSelect-${task.id}`);
         select.setAttribute("name", "groupSelect");
         select.innerHTML = `${taskGroupsAsOptions}`;
 
