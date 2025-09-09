@@ -4,6 +4,10 @@ import TaskGroup from "../models/TaskGroup";
 import feather from "feather-icons";
 
 const uiController = (function () {
+  // VARIABLES
+  const tasksContainer = document.querySelector(".tasks-container");
+
+  // FUNCTIONS
   const createEditableTaskRow = function () {
     const row = document.createElement("div");
     row.className = "task-row editing";
@@ -59,17 +63,6 @@ const uiController = (function () {
 
   const handleCancelTask = function (row) {
     row.remove();
-  };
-
-  const getSubmission = function (options = {}) {
-    console.log("getSubmission being called");
-    const defaults = {
-      title: "Pickup Dry Cleaning",
-      dueDateString: new Date(),
-      importance: 1,
-    };
-    const testSubmission = { ...defaults, ...options };
-    eventBus.emit("formSubmitted", testSubmission);
   };
 
   const createEditableGroupRow = function () {
@@ -186,16 +179,16 @@ const uiController = (function () {
     feather.replace();
   };
 
+  // BUS LISTENERS
   eventBus.on("tasksChanged", displayTasks);
   eventBus.on("taskGroupsChanged", displayTasks);
 
+  // EVENT LISTENERS
   document.querySelector(".add-btns").addEventListener("click", function (e) {
     e.target.dataset.object === "task"
       ? createEditableTaskRow()
       : createEditableGroupRow();
   });
-
-  const tasksContainer = document.querySelector(".tasks-container");
 
   tasksContainer.addEventListener("change", (e) => {
     if (e.target.type === "checkbox") {
@@ -209,8 +202,6 @@ const uiController = (function () {
       eventBus.emit("taskChanged", task);
     }
   });
-
-  return { getSubmission };
 })();
 
 export default uiController;
