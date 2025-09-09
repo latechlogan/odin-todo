@@ -127,6 +127,10 @@ const uiController = (function () {
   const displayTasks = function () {
     const tasks = todoManager.getTasks();
     const taskGroups = todoManager.getTaskGroups();
+    let taskGroupsAsOptions = "";
+    taskGroups.forEach((group) => {
+      taskGroupsAsOptions += `<option value="${group.id}">${group.groupName}</option>`;
+    });
     const tasksContainer = document.querySelector(".tasks-container");
 
     tasksContainer.innerHTML = "";
@@ -157,13 +161,21 @@ const uiController = (function () {
         const title = document.createElement("span");
         title.textContent = task.title;
 
-        cosnt;
+        const selectLabel = document.createElement("label");
+        selectLabel.setAttribute("for", "groupSelect");
+        selectLabel.classList.add("sr-only");
+        selectLabel.textContent =
+          "Select the group you would like to move this task to:";
+        const select = document.createElement("select");
+        select.setAttribute("id", "groupSelect");
+        select.setAttribute("name", "groupSelect");
+        select.innerHTML = `${taskGroupsAsOptions}`;
 
         const editBtn = document.createElement("button");
         editBtn.classList.add("task-edit-btn");
         editBtn.innerHTML = `<span data-feather="edit-2"></span>`;
 
-        taskWrapper.append(checkbox, title, editBtn);
+        taskWrapper.append(checkbox, title, selectLabel, select, editBtn);
         taskGroupWrapper.append(taskWrapper);
       });
 
