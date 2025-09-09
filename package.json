@@ -29,6 +29,7 @@
     "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
-    "feather-icons": "^4.29.2"
+    "feather-icons": "^4.29.2",
+    "minireset.css": "^0.0.7"
   }
 }
