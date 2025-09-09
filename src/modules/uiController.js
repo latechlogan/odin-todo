@@ -169,11 +169,11 @@ const uiController = (function () {
         select.innerHTML = `${taskGroupsAsOptions}`;
         select.value = task.groupId;
 
-        const editBtn = document.createElement("button");
-        editBtn.classList.add("task-edit-btn");
-        editBtn.innerHTML = `<span data-feather="edit-2"></span>`;
+        // const editBtn = document.createElement("button");
+        // editBtn.classList.add("task-edit-btn");
+        // editBtn.innerHTML = `<span data-feather="edit-2"></span>`;
 
-        taskWrapper.append(checkbox, title, selectLabel, select, editBtn);
+        taskWrapper.append(checkbox, title, selectLabel, select);
         taskGroupWrapper.append(taskWrapper);
       });
 
