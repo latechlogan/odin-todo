@@ -162,6 +162,7 @@ const uiController = (function () {
         checkbox.checked = task.completed;
 
         const title = document.createElement("span");
+        title.classList.add("h5");
         title.textContent = task.title;
 
         const selectLabel = document.createElement("label");
@@ -176,11 +177,11 @@ const uiController = (function () {
         select.innerHTML = `${taskGroupsAsOptions}`;
         select.value = task.groupId;
 
-        // const editBtn = document.createElement("button");
-        // editBtn.classList.add("task-edit-btn");
-        // editBtn.innerHTML = `<span data-feather="edit-2"></span>`;
+        const deleteTaskBtn = document.createElement("button");
+        deleteTaskBtn.classList.add("delete-task-btn");
+        deleteTaskBtn.innerHTML = `<span data-feather="trash-2"></span>`;
 
-        taskWrapper.append(checkbox, title, selectLabel, select);
+        taskWrapper.append(checkbox, title, selectLabel, select, deleteTaskBtn);
         taskGroupWrapper.append(taskWrapper);
       });
 
