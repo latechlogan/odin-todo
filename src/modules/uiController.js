@@ -131,16 +131,22 @@ const uiController = (function () {
     taskGroups.forEach((group) => {
       const taskGroupDiv = document.createElement("div");
       taskGroupDiv.classList.add("task-group");
-      taskGroupDiv.classList.add("group-row");
       taskGroupDiv.dataset.id = group.id;
 
-      const taskGroupHeader = document.createElement("p");
+      const taskGroupHeader = document.createElement("div");
       taskGroupHeader.classList.add("task-group__header");
-      taskGroupHeader.textContent = group.groupName;
-
-      const taskGroupMenu = document.createElement("button");
-      taskGroupMenu.classList.add("task-group__menu");
-      taskGroupMenu.innerHTML = '<span data-feather="more-horizontal"></span>';
+      taskGroupHeader.innerHTML = `
+        <p class="task-group__title h6">${group.groupName}</p>
+        <div class="menu-wrapper">
+          <div class="menu-anchor">
+            <ul class="task-group__menu hide">
+              <li data-action="createTask">Create&nbsp;Task</li>
+              <li data-action="deleteGroup">Delete&nbsp;Group</li>
+            </ul>
+          </div>
+          <button class="task-menu__trigger"><span data-feather="more-horizontal"></span></button>
+        </div>
+      `;
 
       const taskGroupWrapper = document.createElement("div");
       taskGroupWrapper.classList.add("task-group__wrapper");
@@ -163,6 +169,7 @@ const uiController = (function () {
         selectLabel.classList.add("sr-only");
         selectLabel.textContent =
           "Select the group you would like to move this task to:";
+
         const select = document.createElement("select");
         select.setAttribute("id", `groupSelect-${task.id}`);
         select.setAttribute("name", "groupSelect");
@@ -177,7 +184,7 @@ const uiController = (function () {
         taskGroupWrapper.append(taskWrapper);
       });
 
-      taskGroupDiv.append(taskGroupHeader, taskGroupMenu, taskGroupWrapper);
+      taskGroupDiv.append(taskGroupHeader, taskGroupWrapper);
       tasksContainer.append(taskGroupDiv);
     });
 
@@ -214,6 +221,26 @@ const uiController = (function () {
     }
     eventBus.emit("tasksChanged");
     displayTasks();
+  });
+
+  tasksContainer.addEventListener("click", (e) => {
+    if (e.target.closest(".task-menu__trigger")) {
+      e.target
+        .closest(".task-menu__trigger")
+        .parentElement.querySelector(".task-group__menu")
+        .classList.toggle("hide");
+    }
+
+    if (e.target.dataset.action === "createTask") {
+      //
+    }
+
+    if (e.target.dataset.action === "deleteGroup") {
+      const targetId = e.target.closest(".task-group").dataset.id;
+      if (targetId !== "inbox") {
+        todoManager.deleteTaskGroup(targetId);
+      }
+    }
   });
 })();
 
