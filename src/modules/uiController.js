@@ -258,7 +258,7 @@ const uiController = (function () {
     }
 
     if (e.target.closest(".delete-task-btn")) {
-      const targetId = e.target.closest(".delete-task-btn").dataset.id;
+      const targetId = e.target.closest(".task-div").dataset.id;
       todoManager.deleteTask(targetId);
       console.log("trash can click");
     }
