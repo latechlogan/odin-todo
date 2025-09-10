@@ -63,13 +63,26 @@ const todoManager = (function () {
     return taskGroups;
   };
 
+  const deleteTask = function (id) {
+    const index = tasks.findIndex((task) => task.id === id);
+    tasks.splice(index, 1);
+    eventBus.emit("tasksChanged", tasks);
+  };
+
+  const deleteTaskGroup = function (id) {
+    const index = taskGroups.findIndex((task) => task.id === id);
+    console.log(index);
+    taskGroups.splice(index, 1);
+    eventBus.emit("taskGroupsChanged", taskGroups);
+  };
+
   eventBus.on("appStart", initializeInbox);
   eventBus.on("tasksLoaded", loadTasks);
   eventBus.on("taskGroupsLoaded", loadTaskGroups);
   eventBus.on("newTaskSubmitted", createTask);
   eventBus.on("newGroupSubmitted", createTaskGroup);
 
-  return { getTasks, getTaskGroups };
+  return { getTasks, getTaskGroups, deleteTask, deleteTaskGroup };
 })();
 
 export default todoManager;
