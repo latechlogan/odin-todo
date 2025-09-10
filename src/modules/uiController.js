@@ -156,14 +156,20 @@ const uiController = (function () {
         const taskWrapper = document.createElement("div");
         taskWrapper.classList.add("task-div");
         taskWrapper.dataset.id = task.id;
+        taskWrapper.dataset.completed = task.completed;
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = task.completed;
 
         const title = document.createElement("span");
-        title.classList.add("h5");
+        title.classList.add("h6");
+        title.classList.add("task-title");
         title.textContent = task.title;
+
+        const primaryWrapper = document.createElement("div");
+        primaryWrapper.classList.add("primary");
+        primaryWrapper.append(checkbox, title);
 
         const selectLabel = document.createElement("label");
         selectLabel.setAttribute("for", `groupSelect-${task.id}`);
@@ -171,17 +177,28 @@ const uiController = (function () {
         selectLabel.textContent =
           "Select the group you would like to move this task to:";
 
+        const selectIcon = document.createElement("span");
+        selectIcon.setAttribute("data-feather", "inbox");
+
         const select = document.createElement("select");
         select.setAttribute("id", `groupSelect-${task.id}`);
         select.setAttribute("name", "groupSelect");
         select.innerHTML = `${taskGroupsAsOptions}`;
         select.value = task.groupId;
 
+        const selectGroup = document.createElement("div");
+        selectGroup.classList.add("select-group");
+        selectGroup.append(selectLabel, selectIcon, select);
+
         const deleteTaskBtn = document.createElement("button");
         deleteTaskBtn.classList.add("delete-task-btn");
         deleteTaskBtn.innerHTML = `<span data-feather="trash-2"></span>`;
 
-        taskWrapper.append(checkbox, title, selectLabel, select, deleteTaskBtn);
+        const secondaryWrapper = document.createElement("div");
+        secondaryWrapper.classList.add("secondary");
+        secondaryWrapper.append(selectGroup, deleteTaskBtn);
+
+        taskWrapper.append(primaryWrapper, secondaryWrapper);
         taskGroupWrapper.append(taskWrapper);
       });
 
