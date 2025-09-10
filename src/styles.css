@@ -145,7 +145,7 @@ header {
   padding: 1.728rem;
   scroll-padding: 1.728rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.728rem;
   align-items: flex-start;
 }
@@ -164,6 +164,7 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  border-bottom: 2px solid #eee;
 }
 
 .menu-anchor {
@@ -201,6 +202,16 @@ header {
   width: 100%;
 }
 
+.task-group__title {
+  font-size: 1rem;
+  color: #777;
+  width: calc(100% - calc(20px + 0.833rem));
+}
+
+.task-menu__trigger .feather {
+  color: #777;
+}
+
 .task-div {
   padding: 1rem;
   margin: 1rem 0;
@@ -208,14 +219,23 @@ header {
     rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
   border-radius: 0.5rem;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: flex-start;
-  align-items: baseline;
 }
 
-.task-div > span {
-  width: calc(100% - calc(20px + 0.5rem));
+.task-div[data-completed="true"] {
+  background-color: #f8f8f8;
+  box-shadow: none;
+}
+
+.task-div .primary {
+  width: 100%;
+  padding: 0.5rem 0 1.5rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 /* checkbox styles */
@@ -224,11 +244,14 @@ input[type="checkbox"] {
   -webkit-appearance: none;
   width: 20px;
   height: 20px;
+  padding: 0;
+  margin: 0 0.833rem 0 0;
   border: 2px solid #ccc;
   border-radius: 50%;
   background-color: transparent;
   cursor: pointer;
   position: relative;
+  flex-shrink: 0;
 }
 
 input[type="checkbox"]:hover {
@@ -250,4 +273,87 @@ input[type="checkbox"]:checked::after {
   height: 10px;
   background-color: #22c55e;
   border-radius: 50%;
+}
+
+.task-title {
+  font-weight: 600;
+}
+
+.task-div[data-completed="true"] .task-title {
+  color: #999;
+  font-weight: 500;
+  text-decoration: line-through;
+}
+
+.task-div .secondary {
+  width: 100%;
+  padding: 0 0 0 calc(20px + 0.833rem); /* width + padding of checkbox, below */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.select-group {
+  border-bottom: 1px dotted #999;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.select-group .feather {
+  color: #777;
+  width: 14px;
+  margin-right: 6px;
+  transition: all 150ms ease;
+}
+
+.select-group:hover .feather {
+  color: unset;
+  transition: all 150ms ease;
+}
+
+select {
+  appearance: none;
+  color: #777;
+  font-size: 16px;
+  text-indent: 0;
+  text-overflow: clip;
+  width: auto;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  outline: none; /* Removes the focus outline too */
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.select-group:hover select {
+  color: unset;
+  transition: all 150ms ease;
+}
+
+.delete-task-btn {
+  background-color: transparent;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.delete-task-btn .feather {
+  color: #777;
+  width: 16px;
+  transition: all 150ms ease;
+}
+
+.delete-task-btn:hover {
+  background-color: hsl(350, 100%, 96%);
+  transition: all 150ms ease;
+}
+
+.delete-task-btn:hover .feather {
+  color: hsl(350, 56%, 40%);
+  transition: all 150ms ease;
 }
