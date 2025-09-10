@@ -71,7 +71,6 @@ const todoManager = (function () {
 
   const deleteTaskGroup = function (id) {
     const index = taskGroups.findIndex((task) => task.id === id);
-    console.log(index);
     taskGroups.splice(index, 1);
     eventBus.emit("taskGroupsChanged", taskGroups);
   };

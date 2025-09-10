@@ -193,6 +193,7 @@ const uiController = (function () {
         const deleteTaskBtn = document.createElement("button");
         deleteTaskBtn.classList.add("delete-task-btn");
         deleteTaskBtn.innerHTML = `<span data-feather="trash-2"></span>`;
+        deleteTaskBtn.dataset.action = "deleteTask";
 
         const secondaryWrapper = document.createElement("div");
         secondaryWrapper.classList.add("secondary");
@@ -249,15 +250,17 @@ const uiController = (function () {
         .classList.toggle("hide");
     }
 
-    if (e.target.dataset.action === "createTask") {
-      //
-    }
-
     if (e.target.dataset.action === "deleteGroup") {
       const targetId = e.target.closest(".task-group").dataset.id;
       if (targetId !== "inbox") {
         todoManager.deleteTaskGroup(targetId);
       }
+    }
+
+    if (e.target.closest(".delete-task-btn")) {
+      const targetId = e.target.closest(".delete-task-btn").dataset.id;
+      todoManager.deleteTask(targetId);
+      console.log("trash can click");
     }
   });
 })();
