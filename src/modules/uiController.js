@@ -144,7 +144,12 @@ const uiController = (function () {
               <li data-action="deleteGroup">Delete&nbsp;Group</li>
             </ul>
           </div>
-          <button class="task-menu__trigger"><span data-feather="more-horizontal"></span></button>
+          ${
+            group.id === "inbox"
+              ? ``
+              : `<button class="task-menu__trigger"><span data-feather="more-horizontal"></span></button>`
+          }
+          
         </div>
       `;
 
