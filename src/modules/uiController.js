@@ -244,10 +244,20 @@ const uiController = (function () {
 
   tasksContainer.addEventListener("click", (e) => {
     if (e.target.closest(".task-menu__trigger")) {
+      const targetId = e.target.closest(".task-group").dataset.id;
+
+      const nonTargetElements = Array.from(
+        document.querySelectorAll(".task-group")
+      ).filter((group) => group.dataset.id !== targetId);
+
       e.target
         .closest(".task-menu__trigger")
         .parentElement.querySelector(".task-group__menu")
         .classList.toggle("hide");
+
+      nonTargetElements.forEach((el) => {
+        el.querySelector(".task-group__menu").classList.add("hide");
+      });
     }
 
     if (e.target.dataset.action === "deleteGroup") {
