@@ -125,6 +125,10 @@ body {
   overflow-x: hidden;
 }
 
+button {
+  cursor: pointer;
+}
+
 .sr-only:not(:focus):not(:active) {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
@@ -136,13 +140,26 @@ body {
 }
 
 header {
+  width: 100%;
+  max-width: 1280px;
   padding: 1.728rem;
-  display: inline-block;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-btns > * {
+  padding: 0.4rem 1.2rem;
 }
 
 .tasks-container {
   width: 100%;
+  max-width: 1280px;
   padding: 1.728rem;
+  margin: 0 auto;
   scroll-padding: 1.728rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -151,6 +168,8 @@ header {
 }
 
 .task-group {
+  padding: 1rem;
+  margin-bottom: 1.728rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -158,13 +177,19 @@ header {
   align-items: flex-start;
 }
 
+.task-group[data-id="inbox"] {
+  background-color: #f6f6f6;
+  border-radius: 1rem;
+}
+
 .task-group__header {
   width: 100%;
+  margin-bottom: 1.728rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid #e6e6e6;
 }
 
 .menu-anchor {
@@ -174,7 +199,7 @@ header {
 .task-group__menu {
   width: auto;
   position: absolute;
-  top: 0;
+  top: -4px;
   right: 0;
   padding: 1rem;
   margin: 30px 0;
@@ -193,6 +218,15 @@ header {
   margin-right: 0.5rem;
 }
 
+.task-group__menu li {
+  cursor: pointer;
+}
+
+.task-group__menu li:first-child {
+  color: #9a9a9a;
+  cursor: default;
+}
+
 .task-menu__trigger {
   background: #fff;
   border: none;
@@ -200,12 +234,18 @@ header {
 
 .task-group__wrapper {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1.728rem;
 }
 
 .task-group__title {
   font-size: 1rem;
   color: #777;
   width: calc(100% - calc(20px + 0.833rem));
+  height: 32px;
 }
 
 .task-menu__trigger .feather {
@@ -213,8 +253,9 @@ header {
 }
 
 .task-div {
+  width: 100%;
   padding: 1rem;
-  margin: 1rem 0;
+  background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
     rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
   border-radius: 0.5rem;
@@ -300,6 +341,7 @@ input[type="checkbox"]:checked::after {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  cursor: pointer;
 }
 
 .select-group .feather {
