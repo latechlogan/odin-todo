@@ -136,7 +136,11 @@ const uiController = (function () {
       const taskGroupHeader = document.createElement("div");
       taskGroupHeader.classList.add("task-group__header");
       taskGroupHeader.innerHTML = `
-        <p class="task-group__title h6">${group.groupName}</p>
+        ${
+          group.id === "inbox"
+            ? `<p class="task-group__title h6">Task ${group.groupName}</p>`
+            : `<p class="task-group__title h6">${group.groupName}</p>`
+        }
         <div class="menu-wrapper">
           <div class="menu-anchor">
             <ul class="task-group__menu hide">
@@ -149,7 +153,6 @@ const uiController = (function () {
               ? ``
               : `<button class="task-menu__trigger"><span data-feather="more-horizontal"></span></button>`
           }
-          
         </div>
       `;
 
